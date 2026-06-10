@@ -213,12 +213,6 @@
 	"settingsTabUpdateText": {
 		"message": "Aktualizuj do {0}"
 	},
-	"settingsAffiliateAdTitle": {
-		"message": "AvaProxy: uruchamiaj serwery VPN na hostingu wspoldzielonym"
-	},
-	"settingsAffiliateAdDescription": {
-		"message": "Wdrazaj odporne na cenzure serwery VPN na tanim hostingu wspoldzielonym. VPS nie jest wymagany. Korzystanie jest darmowe."
-	},
 	"settingsTabAboutDescription": {
 		"message": "Korzystanie z proxy nie może być łatwiejsze dzięki SmartProxy. Pomyśl o tym jak o rozwiązaniu: skonfiguruj raz i zapomnij. Dzięki SmartProxy nie musisz ręcznie zmieniać swojego proxy ani włączać i wyłączać go. Wszystko co musisz zrobić to powiedzieć SmartProxy, że chcesz włączyć proxy dla wybranej strony jednym kliknięciem. Potem, gdy odwiedzisz tę konkretną stronę, SmartProxy zadziała i wszystkie twoje dane dla tej strony będą przesyłane przez proxy, bez żadnego twojego działania."
 	},
@@ -226,7 +220,7 @@
 		"message": "Funkcje inteligentne"
 	},
 	"settingsGeneralSmartFeaturesNoChrome": {
-		"message": "<strong>Tylko <a href='https://www.getfirefox.com/' target='_blank' rel='noopener'>Firefox</a>!</strong> Niestety ta funkcja nie jest obsługiwana przez Chrome."
+		"message": "<strong>Tylko Firefox!</strong> Niestety ta funkcja nie jest obsługiwana przez Chrome."
 	},
 	"settingsGeneralProxyPerOrigin": {
 		"message": "Włącz proxy dla karty/źródła"
