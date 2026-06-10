@@ -1,0 +1,33 @@
+name: Build SmartProxy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser:
+          - name: Chrome-MV3
+            script: build-ch
+          - name: Chrome-MV2
+            script: build-ch-mv2
+          - name: Firefox
+            script: build-ff
+          - name: Edge
+            script: build-ed
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - run: npm run ${{ matrix.browser.script }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SmartProxy-${{ matrix.browser.name }}
+          path: build/
