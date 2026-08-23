@@ -282,6 +282,12 @@
 	"settingsGeneralSyncToWebDAV": {
 		"message": "Synchronizuj z serwerem WebDAV"
 	},
+	"settingsGeneralSyncLastFailure": {
+		"message": "Wystąpił błąd synchronizacji ustawień: "
+	},
+	"settingsGeneralSyncAutoDisabled": {
+		"message": "Synchronizacja została automatycznie wyłączona z powodu powtarzających się błędów. Sprawdź konfigurację synchronizacji i włącz synchronizację ponownie."
+	},
 	"settingsGeneralWebDavServerUrl": {
 		"message": "Adres URL serwera WebDAV:"
 	},
@@ -455,6 +461,9 @@
 	},
 	"settingsAddServerButton": {
 		"message": "Dodaj serwer"
+	},
+	"settingsAddActiveSubscriptionProxyServerButton": {
+		"message": "Dodaj do moich serwerów"
 	},
 	"settingsRemoveMultipleServerButton": {
 		"message": "Usuń wiele"

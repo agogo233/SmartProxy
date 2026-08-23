@@ -1,6 +1,6 @@
 {
 	"name": "__MSG_extensionName__",
-	"version": "2.2",
+	"version": "2.3.1",
 	"manifest_version": 2,
 	"author": "Salar Khalilzadeh",
 	"description": "__MSG_extensionDescription__",
@@ -17,6 +17,7 @@
 		"<all_urls>",
 		"activeTab",
 		"tabs",
+		"webNavigation",
 		"proxy",
 		"webRequest",
 		"webRequestBlocking",

@@ -282,6 +282,12 @@
 	"settingsGeneralSyncToWebDAV": {
 		"message": "Sync to a WebDAV server"
 	},
+	"settingsGeneralSyncLastFailure": {
+		"message": "There was a failure syncing settings: "
+	},
+	"settingsGeneralSyncAutoDisabled": {
+		"message": "Sync has been automatically disabled due to repeated failures. Please check your sync configuration and re-enable sync."
+	},
 	"settingsGeneralWebDavServerUrl": {
 		"message": "WebDAV Server URL:"
 	},
@@ -455,6 +461,9 @@
 	},
 	"settingsAddServerButton": {
 		"message": "Add Server"
+	},
+	"settingsAddActiveSubscriptionProxyServerButton": {
+		"message": "Add to My Servers"
 	},
 	"settingsRemoveMultipleServerButton": {
 		"message": "Delete Multiple"

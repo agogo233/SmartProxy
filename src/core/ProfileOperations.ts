@@ -178,8 +178,16 @@ export class ProfileOperations {
 				}
 			}
 
-			compiledProfile.compiledRules.SubscriptionRules = subscriptionRules;
-			compiledProfile.compiledRules.WhitelistSubscriptionRules = whitelistSubscriptionRules;
+			// For AlwaysEnabledBypassRules, the meaning of subscription rules is reversed:
+			// subscription proxy rules → bypass proxy (default is already proxy-on)
+			// subscription whitelist rules → force proxy (override bypass)
+			if (profile.profileType === SmartProfileType.AlwaysEnabledBypassRules) {
+				compiledProfile.compiledRules.SubscriptionRules = whitelistSubscriptionRules;
+				compiledProfile.compiledRules.WhitelistSubscriptionRules = subscriptionRules;
+			} else {
+				compiledProfile.compiledRules.SubscriptionRules = subscriptionRules;
+				compiledProfile.compiledRules.WhitelistSubscriptionRules = whitelistSubscriptionRules;
+			}
 		}
 	}
 
