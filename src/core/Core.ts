@@ -130,6 +130,35 @@ export class Core {
 			isCommand = true;
 		}
 
+		if (!settingsLib.isLocalLoaded &&
+			(command == CommandMessages.PopupGetInitialData ||
+				command == CommandMessages.SettingsPageGetInitialData ||
+				command == CommandMessages.ProxyableGetInitialData)) {
+			if (!sendResponse)
+				return;
+
+			// MV3 can wake the worker for this request before storage.local.get completes.
+			// Keep the listener synchronous and the response channel open while it loads.
+			let responseSent = false;
+			const respond = (data: any) => {
+				if (responseSent) return;
+				responseSent = true;
+				clearTimeout(timeout);
+				sendResponse(data);
+			};
+			const timeout = setTimeout(() => respond(null), 10000);
+			settingsLib.whenLocalLoaded(() => {
+				if (responseSent) return;
+				try {
+					Core.handleMessages(message, sender, respond);
+				} catch (error) {
+					Debug.error('Failed to get initial data after loading local settings', error);
+					respond(null);
+				}
+			});
+			return true;
+		}
+
 		if (!isCommand) {
 			switch (message) {
 				case CommandMessages.PopupGetInitialData:

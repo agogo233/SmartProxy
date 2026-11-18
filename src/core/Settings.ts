@@ -52,7 +52,16 @@ export class Settings {
 
 	private static onInitializedCompleted: EventTarget = new EventTarget();
 
+	private static localLoaded = false;
+	private static localLoadedCallbacks: Function[] = [];
+
+	/** True once the local settings are read; remote sync may still be pending. */
+	public static get isLocalLoaded(): boolean {
+		return me.localLoaded;
+	}
+
 	public static initialize() {
+		me.localLoaded = false;
 		me.current = new SettingsConfig();
 
 		PolyFill.storageLocalGet(null, me.onInitializeGetLocalData, me.onInitializeGetLocalError);
@@ -76,17 +85,46 @@ export class Settings {
 		me.onInitializedCompleted.dispatchEvent(new Event('onInitializedCompleted'));
 	}
 
+	/**
+	 * Runs the callback once the local settings are loaded, without waiting for remote sync.
+	 * Runs immediately if they are already loaded.
+	 */
+	public static whenLocalLoaded(callback: Function) {
+		if (me.localLoaded) {
+			callback();
+			return;
+		}
+		me.localLoadedCallbacks.push(callback);
+	}
+
+	private static markLocalLoaded() {
+		me.localLoaded = true;
+
+		const callbacks = me.localLoadedCallbacks;
+		me.localLoadedCallbacks = [];
+		for (const callback of callbacks) {
+			try {
+				callback();
+			} catch (e) {
+				Debug.error('Settings.whenLocalLoaded callback failed', e);
+			}
+		}
+	}
+
 	private static onInitializeGetLocalData(data: any) {
 		Debug.log("onInitializeGetLocalData, local data:", JSON.stringify(data));
 
 		data = me.getRestorableSettings(data);
-		sop.copyNonSyncableSettings(data, me.current);
+		// `me.current` is empty at this point, the local data must keep its own subscription proxies
+		sop.copyNonSyncableSettings(data, me.current, true);
 
 		me.current = data;
 		me.updateActiveSettings();
 
 		SettingsOperation.saveAllLocal(true);
 		me.cleanupLocalOldVersionResidueFromStorage();
+
+		me.markLocalLoaded();
 
 		if (me.onInitializedLocally)
 			me.onInitializedLocally();
@@ -112,6 +150,8 @@ export class Settings {
 
 	private static onInitializeGetLocalError(error: any) {
 		Debug.error(`settingsOperation.initialize error: ${error.message}`);
+
+		me.markLocalLoaded();
 
 		if (me.onInitializedLocally)
 			me.onInitializedLocally();

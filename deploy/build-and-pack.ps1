@@ -2,6 +2,9 @@
 # run this in powershell to enable scripts
 # Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
+# all the paths below are relative to the repository root, so this works from any folder
+Set-Location (Split-Path -Parent $PSScriptRoot)
+
 $global:Success = $true
 $global:version = ""
 
@@ -56,7 +59,8 @@ Function BuildAndPack($Build, $BuildName) {
 BuildAndPack "ff" "Firefox"
 BuildAndPack "ch"  "Chrome-ManifestV3"
 BuildAndPack "ch-mv2"  "Chrome-ManifestV2"
-BuildAndPack "ed"  "Edge"
+BuildAndPack "ed"  "Edge-ManifestV3"
+BuildAndPack "ed-mv2"  "Edge-ManifestV2"
 BuildAndPack "th"  "Thunderbird"
 BuildAndPack "op"  "Opera"
 BuildAndPack "ff-unlisted" "firefox-unlisted"

@@ -295,9 +295,10 @@ __pycache__/
 /build-chrome-mv2
 /build-chrome-mv3
 /build-edge
+/build-edge-mv2
 /build-opera
 /src/manifest.json
-/src/manifest.json
+/deploy/secrets*.ps1
 *.map
 *.js
 src/assets/IPCountryDB
